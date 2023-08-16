@@ -87,7 +87,7 @@ shift(){
   return curH
 }
 
-//This method insert a node at begining 
+//This method insert a node at begining ---
 unshift(val){
 let node = new Node(val);
 
@@ -177,15 +177,81 @@ reverse(){
   }
  this.head = prev;
 }
+
+//nth node from end
+nthNodeFromEnd(n){
+  let ansNode = this.head;
+  let tmp = this.head;
+  let cnt = 0;
+  
+}
+
+// sort list
+sort(){
+
+  function sortList(head){
+    if(!head || !head.next) return head;
+
+  let tmp = null;
+  let slow = head;
+  let fast = head;
+
+  while(fast && fast.next){
+    tmp = slow;
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+
+  tmp.next = null;
+
+  let l1 = sortList(head);
+  let l2 = sortList(slow);
+
+  return mergeList(l1,l2);
+  }
+
+  function mergeList(l1,l2){
+    let dummy = new Node(0);
+    let cur = dummy;
+
+    while(l1 && l2){
+      if(l1.val <= l2.val){
+        cur.next = l1;
+        l1 = l1.next;
+      }else{
+        cur.next = l2;
+        l2 = l2.next;
+      }
+      cur = cur.next;
+    }
+
+    while(l1){
+      cur.next = l1;
+      l1 = l1.next;
+      cur = cur.next;
+    }
+
+    while(l2){
+      cur.next = l2;
+      l2 = l2.next;
+      cur = cur.next;
+    }
+
+    return dummy.next;
+  }
+  
+  return sortList(this.head);
+}
 }
 
 
 
 let ll = new SingleLinkList();
+ll.push(100);
+ll.push(20);
+ll.push(300);
+ll.push(50);
 ll.push(1);
-ll.push(2);
-ll.push(3);
-ll.push(4);
+ll.push(30);
 ll.printList();
-ll.reverse()
 ll.printList();
